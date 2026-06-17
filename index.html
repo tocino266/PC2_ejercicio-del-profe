@@ -94,11 +94,31 @@
                 <label for="filtro_especie">Filtrar por Especie:</label>
                 <select id="filtro_especie">
                     <option value="">Todas las especies</option>
-                    </select>
+                </select>
             </div>
 
-            <div id="contenedor_lista" class="tarjetas-grid">
-                <p style="text-align: center; color: #64748b;">Cargando registros...</p>
+            <div class="table-responsive">
+                <table class="mascotas-table">
+                    <thead>
+                        <tr>
+                            <th>Mascota</th>
+                            <th>Edad</th>
+                            <th>Peso</th>
+                            <th>Dueño</th>
+                            <th>DNI Dueño</th>
+                            <th>Celular</th>
+                            <th>Especie</th>
+                            <th>Raza</th>
+                            <th>Atención</th>
+                            <th>Condición</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contenedor_lista">
+                        <tr>
+                            <td colspan="10" style="text-align: center; color: #64748b;">Cargando registros...</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

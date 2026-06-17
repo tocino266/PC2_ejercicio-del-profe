@@ -74,11 +74,10 @@ document.getElementById('registroForm').addEventListener('submit', async functio
     btn.disabled = false; btn.textContent = "Registrar Paciente";
 });
 
-// 4. MOSTRAR LISTADO CON NOMBRES (NO IDs) (GET)
+// 4. MOSTRAR LISTADO CON NOMBRES (NO IDs) (GET) EN FORMATO TABLA
 async function cargarListadoMascotas(filtroEspecieId = null) {
     const contenedor = document.getElementById('contenedor_lista');
     
-    // Esta consulta es clave: trae los datos de la mascota y los nombres unidos de las otras tablas
     let consulta = clienteSupabase
         .from('mascotas')
         .select(`
@@ -96,27 +95,30 @@ async function cargarListadoMascotas(filtroEspecieId = null) {
     const { data, error } = await consulta;
 
     if (error) {
-        contenedor.innerHTML = '<p style="color: red;">Error al cargar las mascotas.</p>';
+        contenedor.innerHTML = '<tr><td colspan="10" style="color: red; text-align: center;">Error al cargar las mascotas.</td></tr>';
         return;
     }
 
     if (data.length === 0) {
-        contenedor.innerHTML = '<p>No hay mascotas registradas con este filtro.</p>';
+        contenedor.innerHTML = '<tr><td colspan="10" style="text-align: center; color: #64748b;">No hay mascotas registradas con este filtro.</td></tr>';
         return;
     }
 
     let html = '';
     data.forEach(mascota => {
         html += `
-            <div class="tarjeta-mascota">
-                <h3>🐾 ${mascota.nombre_mascota} (${mascota.especies.nombre} - ${mascota.razas.nombre})</h3>
-                <p><strong>Edad:</strong> ${mascota.edad} | <strong>Peso:</strong> ${mascota.peso} Kg</p>
-                <p><strong>Condición:</strong> ${mascota.condiciones_medicas.nombre}</p>
-                <p><strong>Atención:</strong> ${mascota.tipos_atencion.nombre}</p>
-                <hr style="margin: 10px 0; border: 1px solid #e2e8f0;">
-                <p><strong>Dueño:</strong> ${mascota.nombre_dueno} ${mascota.apellido_dueno}</p>
-                <p><strong>DNI:</strong> ${mascota.dni_dueno} | <strong>Cel:</strong> ${mascota.celular}</p>
-            </div>
+            <tr>
+                <td class="mascota-nombre">${mascota.nombre_mascota}</td>
+                <td>${mascota.edad}</td>
+                <td>${mascota.peso} Kg</td>
+                <td>${mascota.nombre_dueno} ${mascota.apellido_dueno}</td>
+                <td><span class="badge-dni">${mascota.dni_dueno}</span></td>
+                <td>${mascota.celular}</td>
+                <td>${mascota.especies.nombre}</td>
+                <td>${mascota.razas.nombre}</td>
+                <td>${mascota.tipos_atencion.nombre}</td>
+                <td><span class="badge-condicion">${mascota.condiciones_medicas.nombre}</span></td>
+            </tr>
         `;
     });
     contenedor.innerHTML = html;

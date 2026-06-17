@@ -1,22 +1,20 @@
 /* ==========================================================================
-   ESTILOS PREMIUM - REGISTRO DE PACIENTES
-   Diseño Moderno, Intuitivo y de Alto Impacto Visual
+   ESTILOS PREMIUM - REGISTRO DE MASCOTAS
    ========================================================================== */
 
-/* Importación de tipografía vanguardista */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-    --primary: #0284c7;          /* Azul tecnológico moderno */
+    --primary: #0284c7;          
     --primary-gradient: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
     --primary-hover: #0369a1;
-    --success: #10b981;          /* Verde esmeralda para éxito */
+    --success: #10b981;          
     --success-bg: #ecfdf5;
-    --error: #ef4444;            /* Rojo coral para errores */
+    --error: #ef4444;            
     --error-bg: #fef2f2;
-    --text-main: #0f172a;       /* Slate oscuro para máxima legibilidad */
+    --text-main: #0f172a;       
     --text-muted: #64748b;
-    --bg-body: #f8fafc;          /* Fondo limpio ligeramente grisáceo */
+    --bg-body: #f8fafc;          
     --bg-card: #ffffff;
     --bg-input: #f1f5f9;
     --border-color: #e2e8f0;
@@ -25,14 +23,12 @@
     --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Reseteo general con enfoque en accesibilidad */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* === REEMPLAZA EL BODY ANTERIOR POR ESTE FONDO VETERINARIO === */
 body {
     background-color: var(--bg-body);
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -51,70 +47,9 @@ body {
     background-attachment: fixed;
 }
 
-/* === ESTILOS NUEVOS PARA EL LISTADO === */
-.listado-section h2 {
-    text-align: center;
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-}
-
-.filtro-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 2rem;
-}
-
-.filtro-container select {
-    width: 200px;
-    padding: 0.5rem;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--primary);
-}
-
-.tarjetas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-}
-
-.tarjeta-mascota {
-    background: #f8fafc;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    transition: var(--transition);
-}
-
-.tarjeta-mascota:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    border-color: var(--primary);
-}
-
-.tarjeta-mascota h3 {
-    color: var(--primary-hover);
-    margin-bottom: 10px;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 5px;
-}
-
-.tarjeta-mascota p {
-    font-size: 0.85rem;
-    margin-bottom: 4px;
-    color: #475569;
-}
-
-.tarjeta-mascota strong {
-    color: var(--text-main);
-}
-
-/* Contenedor Principal (Efecto Elevado) */
 .container {
     width: 100%;
-    max-width: 850px;
+    max-width: 950px;
     background-color: var(--bg-card);
     padding: 3rem;
     border-radius: 24px;
@@ -123,7 +58,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
-/* Encabezado Innovador */
 h1 {
     font-size: 2.25rem;
     font-weight: 700;
@@ -144,7 +78,6 @@ h1::after {
     margin: 0.75rem auto 0 auto;
 }
 
-/* Tarjetas de Secciones (Fieldsets Transformados) */
 fieldset {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
@@ -159,7 +92,6 @@ fieldset:hover {
     box-shadow: 0 4px 12px rgba(15, 23, 42, 0.015);
 }
 
-/* Leyendas Estilo Badge Premium */
 legend {
     font-size: 0.85rem;
     font-weight: 700;
@@ -172,7 +104,6 @@ legend {
     border: none;
 }
 
-/* Grid de Formulario Optimizada */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -180,7 +111,6 @@ legend {
     margin-top: 0.5rem;
 }
 
-/* Grupos de Control */
 .form-group {
     display: flex;
     flex-direction: column;
@@ -195,7 +125,6 @@ label {
     transition: var(--transition);
 }
 
-/* Campos de Entrada Estilizados */
 input[type="text"],
 input[type="date"],
 input[type="number"],
@@ -216,20 +145,17 @@ textarea {
     transition: var(--transition);
 }
 
-/* Efectos de Foco Espectaculares */
 input:focus, select:focus, textarea:focus {
     background-color: var(--bg-card);
     border-color: var(--primary);
     box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
 }
 
-/* Estilización de placeholders */
 ::placeholder {
     color: #94a3b8;
     font-weight: 400;
 }
 
-/* Campos de Solo Lectura y Deshabilitados (Efecto Mate Elegante) */
 input[readonly], input[disabled] {
     background-color: #f1f5f9;
     border-color: #e2e8f0;
@@ -238,50 +164,15 @@ input[readonly], input[disabled] {
     opacity: 0.8;
 }
 
-/* Foco en etiquetas al activar inputs */
 .form-group:focus-within label {
     color: var(--primary);
 }
 
-/* Checkbox Táctil Premium */
-.checkbox-group {
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    background-color: var(--bg-body);
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    transition: var(--transition);
-    margin-top: auto; 
-}
-
-.checkbox-group:hover {
-    border-color: #cbd5e1;
-    background-color: #f1f5f9;
-}
-
-.checkbox-group input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: var(--primary);
-    cursor: pointer;
-}
-
-.checkbox-group label {
-    margin-bottom: 0;
-    cursor: pointer;
-    color: var(--text-main);
-}
-
-/* Textarea a pantalla completa en su contenedor */
 textarea {
     resize: vertical;
     min-height: 100px;
 }
 
-/* Botón Magnético de Alta Conversión */
 button[type="submit"] {
     width: 100%;
     padding: 1rem;
@@ -314,7 +205,6 @@ button[type="submit"]:disabled {
     transform: none;
 }
 
-/* Mensajes de Alerta Animados (Toque Moderno) */
 .mensaje {
     padding: 1rem 1.25rem;
     margin-bottom: 2rem;
@@ -343,31 +233,102 @@ button[type="submit"]:disabled {
     border-left: 4px solid var(--error);
 }
 
-/* Animaciones */
 @keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Adaptabilidad para Dispositivos Móviles */
+/* === ESTILOS PARA LA TABLA DE MASCOTAS === */
+.listado-section h2 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.filtro-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.filtro-container select {
+    width: 200px;
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--primary);
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+}
+
+.mascotas-table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+}
+
+.mascotas-table th, .mascotas-table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.mascotas-table th {
+    background-color: #f8fafc;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.mascotas-table td {
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.mascotas-table tbody tr {
+    transition: var(--transition);
+}
+
+.mascotas-table tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+.mascota-nombre {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.badge-dni {
+    color: #b91c1c;
+    background-color: #fee2e2;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.badge-condicion {
+    color: #c2410c;
+    background-color: #ffedd5;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
 @media (max-width: 640px) {
-    body {
-        padding: 1rem 0;
-    }
-    .container {
-        padding: 1.5rem;
-        border-radius: 0;
-    }
-    fieldset {
-        padding: 1.25rem;
-    }
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
+    body { padding: 1rem 0; }
+    .container { padding: 1.5rem; border-radius: 0; }
+    fieldset { padding: 1.25rem; }
+    .form-grid { grid-template-columns: 1fr; }
 }
