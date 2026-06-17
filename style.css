@@ -1,0 +1,315 @@
+/* ==========================================================================
+   ESTILOS PREMIUM - REGISTRO DE PACIENTES
+   Diseño Moderno, Intuitivo y de Alto Impacto Visual
+   ========================================================================== */
+
+/* Importación de tipografía vanguardista */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary: #0284c7;          /* Azul tecnológico moderno */
+    --primary-gradient: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    --primary-hover: #0369a1;
+    --success: #10b981;          /* Verde esmeralda para éxito */
+    --success-bg: #ecfdf5;
+    --error: #ef4444;            /* Rojo coral para errores */
+    --error-bg: #fef2f2;
+    --text-main: #0f172a;       /* Slate oscuro para máxima legibilidad */
+    --text-muted: #64748b;
+    --bg-body: #f8fafc;          /* Fondo limpio ligeramente grisáceo */
+    --bg-card: #ffffff;
+    --bg-input: #f1f5f9;
+    --border-color: #e2e8f0;
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reseteo general con enfoque en accesibilidad */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--text-main);
+    line-height: 1.6;
+    padding: 3rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    
+    /* === NUEVO FONDO DE CLÍNICA === */
+    /* 1. Capa superpuesta (overlay) azul grisáceo semitransparente para legibilidad */
+    /* 2. Imagen de clínica moderna desde Unsplash */
+    background-image: 
+        linear-gradient(rgba(248, 250, 252, 0.85), rgba(226, 232, 240, 0.90)),
+        url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Hace que el fondo se quede quieto al hacer scroll */
+}
+
+/* Contenedor Principal (Efecto Elevado) */
+.container {
+    width: 100%;
+    max-width: 850px;
+    background-color: var(--bg-card);
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Encabezado Innovador */
+h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-main);
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.03em;
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--primary-gradient);
+    border-radius: 2px;
+    margin: 0.75rem auto 0 auto;
+}
+
+/* Tarjetas de Secciones (Fieldsets Transformados) */
+fieldset {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    background-color: #ffffff;
+    transition: var(--transition);
+}
+
+fieldset:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.015);
+}
+
+/* Leyendas Estilo Badge Premium */
+legend {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--primary);
+    background-color: #e0f2fe;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    border: none;
+}
+
+/* Grid de Formulario Optimizada */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+/* Grupos de Control */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+label {
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: var(--transition);
+}
+
+/* Campos de Entrada Estilizados */
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="tel"],
+input[type="email"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-main);
+    background-color: var(--bg-body);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: var(--transition);
+}
+
+/* Efectos de Foco Espectaculares */
+input:focus, select:focus, textarea:focus {
+    background-color: var(--bg-card);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
+}
+
+/* Estilización de placeholders */
+::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* Campos de Solo Lectura y Deshabilitados (Efecto Mate Elegante) */
+input[readonly], input[disabled] {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+    color: #94a3b8;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* Foco en etiquetas al activar inputs */
+.form-group:focus-within label {
+    color: var(--primary);
+}
+
+/* Checkbox Táctil Premium */
+.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    background-color: var(--bg-body);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+    margin-top: auto; /* Alinea perfectamente en la grid */
+}
+
+.checkbox-group:hover {
+    border-color: #cbd5e1;
+    background-color: #f1f5f9;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+    cursor: pointer;
+    color: var(--text-main);
+}
+
+/* Textarea a pantalla completa en su contenedor */
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Botón Magnético de Alta Conversión */
+button[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    transition: var(--transition);
+    margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(2, 132, 199, 0.4);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+button[type="submit"]:disabled {
+    background: #94a3b8;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Mensajes de Alerta Animados (Toque Moderno) */
+.mensaje {
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    border-radius: var(--radius-md);
+    text-align: left;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    animation: slideDown 0.3s ease-out;
+}
+
+.mensaje.oculto {
+    display: none;
+}
+
+.mensaje.exito {
+    background-color: var(--success-bg);
+    color: #065f46;
+    border-left: 4px solid var(--success);
+}
+
+.mensaje.error {
+    background-color: var(--error-bg);
+    color: #991b1b;
+    border-left: 4px solid var(--error);
+}
+
+/* Animaciones */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Adaptabilidad para Dispositivos Móviles */
+@media (max-width: 640px) {
+    body {
+        padding: 1rem 0;
+    }
+    .container {
+        padding: 1.5rem;
+        border-radius: 0;
+    }
+    fieldset {
+        padding: 1.25rem;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
