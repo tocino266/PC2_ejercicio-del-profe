@@ -3,116 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Web de Pacientes</title>
+    <title>Clínica Veterinaria - Registro</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Registro Inicial de Pacientes</h1>
-        
+        <h1>Registro de Mascotas</h1>
         <div id="mensaje" class="mensaje oculto"></div>
 
         <form id="registroForm">
             <fieldset>
-                <legend>Datos Personales</legend>
+                <legend>Datos del Dueño</legend>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="nombres">Nombres *</label>
-                        <input type="text" id="nombres" required>
+                        <label for="nombre_dueno">Nombres *</label>
+                        <input type="text" id="nombre_dueno" required>
                     </div>
                     <div class="form-group">
-                        <label for="apellidos">Apellidos *</label>
-                        <input type="text" id="apellidos" required>
+                        <label for="apellido_dueno">Apellidos *</label>
+                        <input type="text" id="apellido_dueno" required>
                     </div>
                     <div class="form-group">
-                        <label for="dni">DNI *</label>
-                        <input type="text" id="dni" pattern="\d{8}" maxlength="8" title="Debe contener 8 dígitos numéricos" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="fecha_nacimiento">Fecha de nacimiento *</label>
-                        <input type="date" id="fecha_nacimiento" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="edad">Edad</label>
-                        <input type="number" id="edad" readonly placeholder="Calculada auto.">
-                    </div>
-                    <div class="form-group">
-                        <label for="sexo">Sexo *</label>
-                        <select id="sexo" required>
-                            <option value="">Seleccione...</option>
-                            <option value="Masculino">Masculino</option>
-                            <option value="Femenino">Femenino</option>
-                        </select>
+                        <label for="dni_dueno">DNI *</label>
+                        <input type="text" id="dni_dueno" pattern="\d{8}" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                     </div>
                     <div class="form-group">
                         <label for="celular">Celular *</label>
-                        <input type="tel" id="celular" pattern="\d{9}" maxlength="9" title="Debe contener exactamente 9 dígitos numéricos" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                        <input type="tel" id="celular" pattern="\d{9}" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                     </div>
                     <div class="form-group">
                         <label for="correo">Correo electrónico *</label>
                         <input type="email" id="correo" required>
                     </div>
-                    <div class="form-group">
-                        <label for="direccion">Dirección</label>
-                        <input type="text" id="direccion">
-                    </div>
-                    <div class="form-group">
-                        <label for="distrito">Distrito</label>
-                        <input type="text" id="distrito" title="Debe contener texto, no solo números">
-                    </div>
-                    <div class="form-group">
-                        <label for="estado_civil">Estado civil</label>
-                        <select id="estado_civil">
-                            <option value="">Seleccione...</option>
-                            <option value="Soltero/a">Soltero/a</option>
-                            <option value="Casado/a">Casado/a</option>
-                            <option value="Viudo/a">Viudo/a</option>
-                            <option value="Divorciado/a">Divorciado/a</option>
-                        </select>
-                    </div>
                 </div>
             </fieldset>
 
             <fieldset>
-                <legend>Datos Académicos</legend>
-                <div class="form-group">
-                    <label for="grado_academico_id">Grado académico *</label>
-                    <select id="grado_academico_id" required>
-                        <option value="">Cargando datos...</option>
-                    </select>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>Datos Médicos</legend>
+                <legend>Datos de la Mascota</legend>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="enfermedad_preexistente_id">Enfermedad preexistente *</label>
-                        <select id="enfermedad_preexistente_id" required>
-                            <option value="">Cargando datos...</option>
-                        </select>
+                        <label for="nombre_mascota">Nombre de la mascota *</label>
+                        <input type="text" id="nombre_mascota" required>
                     </div>
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="cuenta_seguro">
-                        <label for="cuenta_seguro">¿Cuenta con seguro de salud?</label>
+                    <div class="form-group">
+                        <label for="edad">Edad (Años/Meses) *</label>
+                        <input type="number" step="0.1" id="edad" required>
                     </div>
-                    <div class="form-group" id="contenedor_tipo_seguro">
-                        <label for="tipo_seguro">Tipo de seguro</label>
-                        <input type="text" id="tipo_seguro" placeholder="Ej: EsSalud, EPS Pacífico..." disabled>
+                    <div class="form-group">
+                        <label for="peso">Peso (Kg) *</label>
+                        <input type="number" step="0.1" id="peso" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="especie_id">Especie *</label>
+                        <select id="especie_id" required><option value="">Cargando...</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="raza_id">Raza *</label>
+                        <select id="raza_id" required><option value="">Cargando...</option></select>
                     </div>
                 </div>
             </fieldset>
 
             <fieldset>
-                <legend>Otros Datos</legend>
-                <div class="form-group">
+                <legend>Atención Médica</legend>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="tipo_atencion_id">Tipo de atención *</label>
+                        <select id="tipo_atencion_id" required><option value="">Cargando...</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="condicion_medica_id">Condición médica *</label>
+                        <select id="condicion_medica_id" required><option value="">Cargando...</option></select>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 15px;">
                     <label for="observaciones">Observaciones adicionales</label>
-                    <textarea id="observaciones" rows="3"></textarea>
+                    <textarea id="observaciones" rows="2"></textarea>
                 </div>
             </fieldset>
 
             <button type="submit" id="btnRegistrar">Registrar Paciente</button>
         </form>
+
+        <hr style="margin: 3rem 0; border: none; border-top: 2px dashed #cbd5e1;">
+
+        <div class="listado-section">
+            <h2>Mascotas Registradas</h2>
+            
+            <div class="filtro-container">
+                <label for="filtro_especie">Filtrar por Especie:</label>
+                <select id="filtro_especie">
+                    <option value="">Todas las especies</option>
+                    </select>
+            </div>
+
+            <div id="contenedor_lista" class="tarjetas-grid">
+                <p style="text-align: center; color: #64748b;">Cargando registros...</p>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

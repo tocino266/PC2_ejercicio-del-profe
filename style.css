@@ -32,7 +32,9 @@
     padding: 0;
 }
 
+/* === REEMPLAZA EL BODY ANTERIOR POR ESTE FONDO VETERINARIO === */
 body {
+    background-color: var(--bg-body);
     font-family: 'Plus Jakarta Sans', sans-serif;
     color: var(--text-main);
     line-height: 1.6;
@@ -41,16 +43,72 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    
-    /* === NUEVO FONDO DE CLÍNICA === */
-    /* 1. Capa superpuesta (overlay) azul grisáceo semitransparente para legibilidad */
-    /* 2. Imagen de clínica moderna desde Unsplash */
     background-image: 
-        linear-gradient(rgba(248, 250, 252, 0.85), rgba(226, 232, 240, 0.90)),
-        url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2000&auto=format&fit=crop');
+        linear-gradient(rgba(248, 250, 252, 0.90), rgba(226, 232, 240, 0.95)),
+        url('https://images.unsplash.com/photo-1599443015574-be5fe8a05783?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Hace que el fondo se quede quieto al hacer scroll */
+    background-attachment: fixed;
+}
+
+/* === ESTILOS NUEVOS PARA EL LISTADO === */
+.listado-section h2 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.filtro-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2rem;
+}
+
+.filtro-container select {
+    width: 200px;
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--primary);
+}
+
+.tarjetas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.tarjeta-mascota {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+}
+
+.tarjeta-mascota:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+.tarjeta-mascota h3 {
+    color: var(--primary-hover);
+    margin-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 5px;
+}
+
+.tarjeta-mascota p {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+    color: #475569;
+}
+
+.tarjeta-mascota strong {
+    color: var(--text-main);
 }
 
 /* Contenedor Principal (Efecto Elevado) */
@@ -196,7 +254,7 @@ input[readonly], input[disabled] {
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
     transition: var(--transition);
-    margin-top: auto; /* Alinea perfectamente en la grid */
+    margin-top: auto; 
 }
 
 .checkbox-group:hover {

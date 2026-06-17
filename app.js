@@ -4,160 +4,125 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const clienteSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// 2. Ejecutar funciones al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
-    cargarGradosAcademicos();
-    cargarEnfermedades();
+    cargarCatalogos();
+    cargarListadoMascotas(); // Carga la tabla al abrir la página
 });
 
-// 3. Funciones para cargar catálogos dinámicamente
-async function cargarGradosAcademicos() {
-    const select = document.getElementById('grado_academico_id');
-    const { data, error } = await clienteSupabase.from('grados_academicos').select('*').eq('activo', true).order('id', { ascending: true });
+// 1. CARGAR TODOS LOS CATÁLOGOS DINÁMICOS
+async function cargarCatalogos() {
+    await poblarSelect('especies', 'especie_id', 'Seleccione especie');
+    await poblarSelect('razas', 'raza_id', 'Seleccione raza');
+    await poblarSelect('tipos_atencion', 'tipo_atencion_id', 'Seleccione atención');
+    await poblarSelect('condiciones_medicas', 'condicion_medica_id', 'Seleccione condición');
     
-    if (error) {
-        console.error("Error al cargar grados:", error);
-        select.innerHTML = '<option value="">Error al cargar datos</option>';
-        return;
-    }
-    
-    select.innerHTML = '<option value="">Seleccione un grado...</option>';
-    data.forEach(grado => {
-        select.innerHTML += `<option value="${grado.id}">${grado.nombre}</option>`;
-    });
+    // Poblar también el select del filtro
+    await poblarSelect('especies', 'filtro_especie', 'Todas las especies');
 }
 
-async function cargarEnfermedades() {
-    const select = document.getElementById('enfermedad_preexistente_id');
-    const { data, error } = await clienteSupabase.from('enfermedades_preexistentes').select('*').eq('activo', true).order('id', { ascending: true });
+async function poblarSelect(tabla, elementoId, textoDefault) {
+    const select = document.getElementById(elementoId);
+    const { data, error } = await clienteSupabase.from(tabla).select('*').order('id');
     
-    if (error) {
-        console.error("Error al cargar enfermedades:", error);
-        select.innerHTML = '<option value="">Error al cargar datos</option>';
-        return;
-    }
-
-    select.innerHTML = '<option value="">Seleccione una enfermedad...</option>';
-    data.forEach(enfermedad => {
-        select.innerHTML += `<option value="${enfermedad.id}">${enfermedad.nombre}</option>`;
-    });
+    if (error) return console.error(`Error en ${tabla}:`, error);
+    
+    let opciones = `<option value="">${textoDefault}</option>`;
+    data.forEach(item => opciones += `<option value="${item.id}">${item.nombre}</option>`);
+    select.innerHTML = opciones;
 }
 
-// 4. LÓGICA DE INTERFAZ Y VALIDACIONES
-
-// A. Cálculo automático de la edad
-document.getElementById('fecha_nacimiento').addEventListener('change', function(e) {
-    const fechaNacimiento = new Date(e.target.value);
-    const hoy = new Date();
-    
-    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
-    const mes = hoy.getMonth() - fechaNacimiento.getMonth();
-    
-    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
-        edad--;
-    }
-    
-    document.getElementById('edad').value = edad;
-});
-
-// B. Controlar el campo de Tipo de Seguro
-const checkboxSeguro = document.getElementById('cuenta_seguro');
-const inputTipoSeguro = document.getElementById('tipo_seguro');
-
-checkboxSeguro.addEventListener('change', function() {
-    if (this.checked) {
-        inputTipoSeguro.disabled = false;
-        inputTipoSeguro.focus();
-    } else {
-        inputTipoSeguro.disabled = true;
-        inputTipoSeguro.value = '';
-    }
-});
-
-// C. Validación del campo Distrito (No permitir SOLO números)
-const inputDistrito = document.getElementById('distrito');
-
-inputDistrito.addEventListener('input', function() {
-    if (/^\d+$/.test(this.value)) {
-        this.setCustomValidity('El distrito no puede ser solo números. Ingrese texto.');
-    } else {
-        this.setCustomValidity(''); 
-    }
-});
-
-// 5. Función para mostrar mensajes en pantalla
+// 2. FUNCIÓN PARA MOSTRAR MENSAJES
 function mostrarMensaje(texto, tipo) {
     const divMensaje = document.getElementById('mensaje');
     divMensaje.textContent = texto;
     divMensaje.className = `mensaje ${tipo}`; 
-    
-    setTimeout(() => {
-        divMensaje.className = 'mensaje oculto';
-    }, 5000);
+    setTimeout(() => divMensaje.className = 'mensaje oculto', 4000);
 }
 
-// 6. EVENTO DE ENVÍO DEL FORMULARIO
+// 3. REGISTRAR MASCOTA (POST)
 document.getElementById('registroForm').addEventListener('submit', async function(e) {
-    e.preventDefault(); 
+    e.preventDefault();
+    const btn = document.getElementById('btnRegistrar');
+    btn.disabled = true; btn.textContent = "Registrando...";
 
-    const btnRegistrar = document.getElementById('btnRegistrar');
-    btnRegistrar.disabled = true;
-    btnRegistrar.textContent = "Registrando...";
-
-    const pacienteData = {
-        nombres: document.getElementById('nombres').value.trim(),
-        apellidos: document.getElementById('apellidos').value.trim(),
-        dni: document.getElementById('dni').value.trim(),
-        fecha_nacimiento: document.getElementById('fecha_nacimiento').value,
-        edad: parseInt(document.getElementById('edad').value),
-        sexo: document.getElementById('sexo').value,
+    const nuevaMascota = {
+        nombre_dueno: document.getElementById('nombre_dueno').value.trim(),
+        apellido_dueno: document.getElementById('apellido_dueno').value.trim(),
+        dni_dueno: document.getElementById('dni_dueno').value.trim(),
         celular: document.getElementById('celular').value.trim(),
         correo: document.getElementById('correo').value.trim(),
-        direccion: document.getElementById('direccion').value.trim(),
-        distrito: document.getElementById('distrito').value.trim(),
-        estado_civil: document.getElementById('estado_civil').value,
-        grado_academico_id: parseInt(document.getElementById('grado_academico_id').value),
-        enfermedad_preexistente_id: parseInt(document.getElementById('enfermedad_preexistente_id').value),
-        cuenta_seguro: document.getElementById('cuenta_seguro').checked,
-        tipo_seguro: document.getElementById('tipo_seguro').value.trim(),
+        nombre_mascota: document.getElementById('nombre_mascota').value.trim(),
+        edad: parseFloat(document.getElementById('edad').value),
+        peso: parseFloat(document.getElementById('peso').value),
+        especie_id: parseInt(document.getElementById('especie_id').value),
+        raza_id: parseInt(document.getElementById('raza_id').value),
+        tipo_atencion_id: parseInt(document.getElementById('tipo_atencion_id').value),
+        condicion_medica_id: parseInt(document.getElementById('condicion_medica_id').value),
         observaciones: document.getElementById('observaciones').value.trim()
     };
 
-    // Validación contra la base de datos (DNI o Nombres+Apellidos)
-    const { data: pacienteExistente, error: errorBusqueda } = await clienteSupabase
-        .from('pacientes')
-        .select('id, dni, nombres, apellidos')
-        .or(`dni.eq.${pacienteData.dni},and(nombres.eq."${pacienteData.nombres}",apellidos.eq."${pacienteData.apellidos}")`);
+    const { error } = await clienteSupabase.from('mascotas').insert([nuevaMascota]);
 
-    if (errorBusqueda) {
-        mostrarMensaje("Error al verificar registros previos.", "error");
-        btnRegistrar.disabled = false;
-        btnRegistrar.textContent = "Registrar Paciente";
-        return;
-    }
-
-    if (pacienteExistente && pacienteExistente.length > 0) {
-        mostrarMensaje("Usuario ya registrado", "error");
-        btnRegistrar.disabled = false;
-        btnRegistrar.textContent = "Registrar Paciente";
-        return;
-    }
-
-    // Inserción final en la base de datos
-    const { error: errorInsert } = await clienteSupabase
-        .from('pacientes')
-        .insert([pacienteData]);
-
-    if (errorInsert) {
-        console.error(errorInsert);
-        mostrarMensaje("No se pudo registrar el paciente. Verifique los datos ingresados.", "error");
+    if (error) {
+        mostrarMensaje("Error al registrar. Intente nuevamente.", "error");
     } else {
-        mostrarMensaje("Paciente registrado correctamente", "exito");
-        document.getElementById('registroForm').reset(); 
-        document.getElementById('edad').value = ''; 
-        inputTipoSeguro.disabled = true; // Volver a bloquear el seguro tras limpiar
+        mostrarMensaje("¡Mascota registrada exitosamente!", "exito");
+        document.getElementById('registroForm').reset();
+        cargarListadoMascotas(); // Recarga la lista para ver el nuevo registro
     }
 
-    btnRegistrar.disabled = false;
-    btnRegistrar.textContent = "Registrar Paciente";
+    btn.disabled = false; btn.textContent = "Registrar Paciente";
+});
+
+// 4. MOSTRAR LISTADO CON NOMBRES (NO IDs) (GET)
+async function cargarListadoMascotas(filtroEspecieId = null) {
+    const contenedor = document.getElementById('contenedor_lista');
+    
+    // Esta consulta es clave: trae los datos de la mascota y los nombres unidos de las otras tablas
+    let consulta = clienteSupabase
+        .from('mascotas')
+        .select(`
+            *,
+            especies (nombre),
+            razas (nombre),
+            tipos_atencion (nombre),
+            condiciones_medicas (nombre)
+        `)
+        .order('created_at', { ascending: false });
+
+    // Aplicar filtro si existe
+    if (filtroEspecieId) consulta = consulta.eq('especie_id', filtroEspecieId);
+
+    const { data, error } = await consulta;
+
+    if (error) {
+        contenedor.innerHTML = '<p style="color: red;">Error al cargar las mascotas.</p>';
+        return;
+    }
+
+    if (data.length === 0) {
+        contenedor.innerHTML = '<p>No hay mascotas registradas con este filtro.</p>';
+        return;
+    }
+
+    let html = '';
+    data.forEach(mascota => {
+        html += `
+            <div class="tarjeta-mascota">
+                <h3>🐾 ${mascota.nombre_mascota} (${mascota.especies.nombre} - ${mascota.razas.nombre})</h3>
+                <p><strong>Edad:</strong> ${mascota.edad} | <strong>Peso:</strong> ${mascota.peso} Kg</p>
+                <p><strong>Condición:</strong> ${mascota.condiciones_medicas.nombre}</p>
+                <p><strong>Atención:</strong> ${mascota.tipos_atencion.nombre}</p>
+                <hr style="margin: 10px 0; border: 1px solid #e2e8f0;">
+                <p><strong>Dueño:</strong> ${mascota.nombre_dueno} ${mascota.apellido_dueno}</p>
+                <p><strong>DNI:</strong> ${mascota.dni_dueno} | <strong>Cel:</strong> ${mascota.celular}</p>
+            </div>
+        `;
+    });
+    contenedor.innerHTML = html;
+}
+
+// 5. EVENTO DEL FILTRO (Se dispara al cambiar el select)
+document.getElementById('filtro_especie').addEventListener('change', function(e) {
+    cargarListadoMascotas(e.target.value);
 });
